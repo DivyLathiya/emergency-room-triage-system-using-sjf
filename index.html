@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Room Triage System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-green-100 min-h-screen">
+    <div class="container mx-auto p-6 max-w-5xl">
+        <h1 class="text-4xl font-bold text-center text-blue-700 mb-4">Emergency Room Triage System</h1>
+        <h2 class="text-2xl text-center text-blue-600 mb-6">Using Shortest Job First(SJF) Algorithm</h2>
+
+        <!-- Patient Input Form -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold text-orange-600 mb-4">Add Patient</h3>
+            <form id="patient-form" class="flex flex-col sm:flex-row gap-4">
+                <div class="flex-1">
+                    <label class="block text-blue-600">Patient ID</label>
+                    <input type="text" id="patient-id" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-400" required>
+                </div>
+                <div class="flex-1">
+                    <label class="block text-blue-600">Arrival Time (HH:MM)</label>
+                    <input type="text" id="arrival-time" placeholder="e.g., 10:00" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-400" required>
+                </div>
+                <div class="flex-1">
+                    <label class="block text-blue-600">Est. Treatment Time (min)</label>
+                    <input type="number" id="treatment-time" min="1" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-400" required>
+                </div>
+                <div class="flex-1">
+                    <label class="block text-blue-600">Criticality</label>
+                    <select id="criticality" class="w-full p-2 border rounded-md focus:ring-2 focus:ring-green-400">
+                        <option value="non-critical">Non-Critical</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-orange-500 text-white p-2 rounded-md hover:bg-orange-600 transition duration-300 self-end">Add Patient</button>
+            </form>
+        </section>
+
+        <!-- Patient Table -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold text-orange-600 mb-4">Patients List</h3>
+            <table id="patient-table" class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="p-3">Patient ID</th>
+                        <th class="p-3">Arrival Time</th>
+                        <th class="p-3">Treatment Time (min)</th>
+                        <th class="p-3">Criticality</th>
+                    </tr>
+                </thead>
+                <tbody id="patient-table-body"></tbody>
+            </table>
+            <button id="clear-btn" class="mt-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600 transition duration-300">Clear Patients</button>
+        </section>
+
+        <!-- Schedule Button and Loading Spinner -->
+        <div class="text-center mb-6">
+            <button id="schedule-btn" class="bg-green-500 text-white p-3 rounded-md hover:bg-green-600 transition duration-300">Generate Schedule</button>
+            <div id="loading-spinner" class="hidden mt-4">
+                <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Gantt Chart -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-semibold text-orange-600 mb-4">Schedule (Gantt Chart)</h3>
+            <canvas id="gantt-chart"></canvas>
+        </section>
+
+        <!-- Metrics -->
+        <section class="bg-white rounded-lg shadow-lg p-6">
+            <h3 class="text-xl font-semibold text-orange-600 mb-4">Performance Metrics</h3>
+            <p id="avg-waiting-time" class="text-blue-600">Average Waiting Time: N/A</p>
+            <p id="avg-turnaround-time" class="text-blue-600">Average Turnaround Time: N/A</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

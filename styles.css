@@ -1,0 +1,27 @@
+/* Custom styles to complement Tailwind */
+@import "tailwindcss";
+table tr {
+    transition: all 0.3s ease;
+}
+
+table tr.new-row {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+input:invalid:focus {
+    border-color: #ef4444;
+
+}
+
+#loading-spinner {
+    display: none;
+}
+
+#loading-spinner.active {
+    display: block;
+}
